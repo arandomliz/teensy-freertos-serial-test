@@ -12,3 +12,6 @@ freertos_spi_uart  # SPI and UART together
 
 The last target `freertos_spi_uart` is the one that doesn't reach the `Done all`
 print statement.
+
+The program only runs when the serial monitor is connected to it, until then it will
+flash fastly.
