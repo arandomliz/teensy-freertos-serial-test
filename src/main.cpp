@@ -24,6 +24,7 @@ static void led_task(void*) {
 #endif
 
 
+#ifdef USE_UART
 void test_serial() {
   Serial.println("Starting send");
   SERIAL_TEST.begin(115200);
@@ -35,8 +36,9 @@ void test_serial() {
   SERIAL_TEST.flush();
   Serial.println("Done");
 }
+#endif
 
-
+#ifdef USE_SPI
 inline void test_spi() {
   pinMode(CS_KNEE, OUTPUT);
   pinMode(DRDY_KNEE, INPUT);
@@ -44,6 +46,7 @@ inline void test_spi() {
   SPI.begin();
   SPI.transfer(0x00);
 }
+#endif
 
 void setup() {
   pinMode(STO_KNEE, OUTPUT);
@@ -56,8 +59,12 @@ void setup() {
     digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
   }
 
+#ifdef USE_SPI
   test_spi();
+#endif
+#ifdef USE_UART
   test_serial();
+#endif
 
   Serial.println("Done all");
 
